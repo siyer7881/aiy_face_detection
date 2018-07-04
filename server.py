@@ -229,11 +229,12 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
                 if output.numObjects > 0:
                     output_json = output.to_json()
                    # print(output_json.joy)
-                    print("JOY Score: ", output_json.joy) 
+                     
 
                     # Send the json object if there is a socket connection
                     if socket_connected is True:
                         q.put(output_json)
+                        print("JOY Score: ", output_json.joy)
 
                 # Additional data to measure inference time
                 if stats is True:
