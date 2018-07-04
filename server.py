@@ -104,7 +104,12 @@ class ApiObject(object):
         self.objects = []
 
     def to_json(self):
-        return json.dumps(self.__dict__)
+       # return json.dumps(self.__dict__)
+        testObj = json.dumps(self.__dict__)
+        print("JOY Score:" + testObj.joy) 
+        # if (testObj.joy < 0.2):
+        # requests.post("https://maker.ifttt.com/trigger/MakeUseOf_Test/with/key/{secret_key}" 
+        return testObj
 
 
 # AIY Vision setup and inference
