@@ -104,7 +104,7 @@ class ApiObject(object):
         self.objects = []
 
     def to_json(self):
-       return json.dumps(self.__dict__)
+       print json.dumps(self.__dict__)
         #testObj = json.dumps(self.__dict__)
         #print("JOY Score:" + testObj) 
         # if (testObj.joy < 0.2):
