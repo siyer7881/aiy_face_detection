@@ -104,12 +104,12 @@ class ApiObject(object):
         self.objects = []
 
     def to_json(self):
-       # return json.dumps(self.__dict__)
-        testObj = json.dumps(self.__dict__)
-        print("JOY Score:" + testObj.joy) 
+       return json.dumps(self.__dict__)
+        #testObj = json.dumps(self.__dict__)
+        #print("JOY Score:" + testObj) 
         # if (testObj.joy < 0.2):
         # requests.post("https://maker.ifttt.com/trigger/MakeUseOf_Test/with/key/{secret_key}" 
-        return testObj
+       # return testObj
 
 
 # AIY Vision setup and inference
@@ -228,13 +228,13 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
                 # No need to do anything else if there are no objects
                 if output.numObjects > 0:
                     output_json = output.to_json()
-                   # print(output_json.joy)
+                   print("Joy Score: %s" % output_json.objects.joy)
                      
 
                     # Send the json object if there is a socket connection
                     if socket_connected is True:
                         q.put(output_json)
-                        print("JOY Score: ", output_json.joy)
+                        
 
                 # Additional data to measure inference time
                 if stats is True:
