@@ -105,8 +105,8 @@ class ApiObject(object):
 
     def to_json(self):
        return json.dumps(self.__dict__)
-       testObj = json.dumps(self.__dict__)
-       print(testObj) 
+       # testObj = json.dumps(self.__dict__)
+        # print(testObj) 
         # if (testObj.joy < 0.2):
         # requests.post("https://maker.ifttt.com/trigger/MakeUseOf_Test/with/key/{secret_key}" 
         # return testObj
@@ -228,8 +228,7 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
                 # No need to do anything else if there are no objects
                 if output.numObjects > 0:
                     output_json = output.to_json()
-                    print(testObj) 
-                    #print(output_json.version)
+                    print(output_json["version"])
                 
                      
 
