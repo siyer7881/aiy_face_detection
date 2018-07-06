@@ -228,7 +228,9 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
                 # No need to do anything else if there are no objects
                 if output.numObjects > 0:
                     output_json = output.to_json()
-                    print(output_json[2])
+                    #print(output_json[2])
+                    output_test = json.loads(output)
+                    print (output_test['objects'])
                 
                      
 
