@@ -233,7 +233,7 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
 
                     # Send the json object if there is a socket connection
                     if socket_connected is True:
-                        q.put(output_json)
+                        q.put(output_json.objects)
                         
 
                 # Additional data to measure inference time
