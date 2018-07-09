@@ -232,8 +232,8 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
                     #output_test = json.loads(output)
                     #print (output_test['objects'])
                     for o in output.objects:
-                      if ( o.name == 'face')
-                                print o.joy
+                      if o.name == "face":
+                          print o.joy
                 
                      
 
