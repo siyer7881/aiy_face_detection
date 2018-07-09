@@ -233,7 +233,7 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
                     #print (output_test['objects'])
                     for o in output.objects:
                       if o.name == "face":
-                          print (o.joy)
+                          print (o._dict_)
                 
                      
 
