@@ -240,7 +240,7 @@ def run_inference(run_event, model="face", framerate=10, cammode=5, hres=640, vr
                     for o in output.objects:
                         if o['joy'] < 0.02:
                             #print(o['joy'])
-                            requests.post("https://maker.ifttt.com/trigger/Face_detection_notification/with/key/nxbmyx8u-cHje_Vyr0GfmsoHSrCCN8DKT6LUiy2Sr89")
+                            requests.post("https://maker.ifttt.com/trigger/Face_detection_notification/with/key/nxbmyx8u-cHje_Vyr0GfmsoHSrCCN8DKT6LUiy2Sr89", data = (o['joy']) )
 
                         # Additional data to measure inference time
                 if stats is True:
