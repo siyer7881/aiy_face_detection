@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Chad Wallace Hart
+# Copyright (c) 2018 Santosh Iyer
 # Attribution notice:
 #   Large portions of this code are from https://github.com/google/aiyprojects-raspbian
 #   Copyright 2017 Google Inc.
@@ -22,8 +22,8 @@ from flask import Flask, Response
 
 socket_connected = False
 q = queue.Queue(maxsize=1)  # we'll use this for inter-process communication
-capture_width = 1640        # The max horizontal resolution of PiCam v2
-capture_height = 922        # Max vertical resolution on PiCam v2 with a 16:9 ratio
+capture_width = 1640  # The max horizontal resolution of PiCam v2
+capture_height = 922  # Max vertical resolution on PiCam v2 with a 16:9 ratio
 time_log = []
 
 
@@ -104,16 +104,16 @@ class ApiObject(object):
         self.objects = []
 
     def to_json(self):
-       return json.dumps(self.__dict__)
-       # testObj = json.dumps(self.__dict__)
-        # print(testObj) 
+        return json.dumps(self.__dict__)
+        # testObj = json.dumps(self.__dict__)
+        # print(testObj)
         # if (testObj.joy < 0.2):
-        # requests.post("https://maker.ifttt.com/trigger/MakeUseOf_Test/with/key/{secret_key}" 
+        #
         # return testObj
 
 
 # AIY Vision setup and inference
-def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, vres=922, stats=True):
+def run_inference(run_event, model="face", framerate=10, cammode=5, hres=640, vres=480, stats=True):
     # See the Raspicam documentation for mode and framerate limits:
     # https://picamera.readthedocs.io/en/release-1.13/fov.html#sensor-modes
     # Default to the highest resolution possible at 16:9 aspect ratio
@@ -227,26 +227,27 @@ def run_inference(run_event, model="face", framerate=15, cammode=5, hres=1640, v
 
                 # No need to do anything else if there are no objects
                 if output.numObjects > 0:
-                    #output_json = output.to_json()
-                    #print(output_json[2])
-                    #output_test = json.loads(output)
-                    #print (output_test['objects'])
-                    for o in output.objects:
-                      #if o.name == 'face':
-                       print(o['joy'])
-                
-                     
+                     output_json = output.to_json()
+                     print(output_json)
+
+
+
 
                     # Send the json object if there is a socket connection
                     if socket_connected is True:
-                        q.put(o)
-                        
+                        q.put(output_json)
 
-                # Additional data to measure inference time
+
+                    for o in output.objects:
+                        if o['joy'] < 0.02:
+                            #print(o['joy'])
+                            requests.post("https://maker.ifttt.com/trigger/Face_detection_notification/with/key/nxbmyx8u-cHje_Vyr0GfmsoHSrCCN8DKT6LUiy2Sr89"
+
+                        # Additional data to measure inference time
                 if stats is True:
                     time_log.append(output.inferenceTime)
                     time_log = time_log[-10:]  # just keep the last 10 times
-                    print("Avg inference time: %s" % (sum(time_log)/len(time_log)))
+                    print("Avg inference time: %s" % (sum(time_log) / len(time_log)))
 
 
 # Web server setup
@@ -270,7 +271,6 @@ def ping():
 
 # Main control logic to parse args and spawn threads
 def main(webserver):
-
     # Command line parameters to help with testing and optimization
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -326,7 +326,7 @@ def main(webserver):
     # thread for running AIY Tensorflow inference
     detection_thread = Thread(target=run_inference,
                               args=(is_running, args.model, args.framerate, args.cam_mode,
-                                    args.hres, args.vres, args.stats, ))
+                                    args.hres, args.vres, args.stats,))
     detection_thread.start()
 
     # run Flask in the main thread
