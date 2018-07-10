@@ -11,6 +11,7 @@ import os
 import json
 import queue
 import argparse
+import requests
 
 from aiy.vision.leds import Leds
 from aiy.vision.leds import PrivacyLed
