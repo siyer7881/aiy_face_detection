@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Santosh Iyer
+# Copyright (c) 2018 Chad Wallace Hart
 # Attribution notice:
 #   Large portions of this code are from https://github.com/google/aiyprojects-raspbian
 #   Copyright 2017 Google Inc.
@@ -224,14 +224,12 @@ def run_inference(run_event, model="face", framerate=10, cammode=5, hres=640, vr
                 output.timeStamp = now
                 output.inferenceTime = (now - last_time)
                 last_time = now
-
+                
+                
                 # No need to do anything else if there are no objects
                 if output.numObjects > 0:
-                     output_json = output.to_json()
-                     print(output_json)
-
-
-
+                    output_json = output.to_json()
+                    print(output_json)
 
                     # Send the json object if there is a socket connection
                     if socket_connected is True:
@@ -241,7 +239,7 @@ def run_inference(run_event, model="face", framerate=10, cammode=5, hres=640, vr
                     for o in output.objects:
                         if o['joy'] < 0.02:
                             #print(o['joy'])
-                            requests.post("https://maker.ifttt.com/trigger/Face_detection_notification/with/key/nxbmyx8u-cHje_Vyr0GfmsoHSrCCN8DKT6LUiy2Sr89"
+                            requests.post("https://maker.ifttt.com/trigger/Face_detection_notification/with/key/nxbmyx8u-cHje_Vyr0GfmsoHSrCCN8DKT6LUiy2Sr89")
 
                         # Additional data to measure inference time
                 if stats is True:
